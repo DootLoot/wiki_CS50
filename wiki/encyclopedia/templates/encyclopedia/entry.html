@@ -1,0 +1,19 @@
+{% load markdownify %}
+
+<!DOCTYPE html>
+
+<html>
+    
+    <head>
+
+        <title> {{ title }} </title>
+    
+    </head>
+
+    <body>
+
+        {{ file|markdownify }}
+
+    </body>
+
+</html>
