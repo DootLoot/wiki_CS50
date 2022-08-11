@@ -1,1 +1,1 @@
-hello
+This project was made for edx's CS50 class for Project 2 and is made in Python/HTML combined with Django.
