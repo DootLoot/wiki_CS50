@@ -21,3 +21,6 @@ def entry(request, title):
             "file": entry,
             "title": title
         })
+
+def create(request):
+    return render(request, "encyclopedia/createPage.html")
