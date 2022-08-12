@@ -11,7 +11,13 @@ def index(request):
     })
 
 def entry(request, title):
-    return render(request, "encyclopedia/entry.html", {
-        "file": util.get_entry(title),
-        "title": title
-    })
+    
+    entry = util.get_entry(title)
+
+    if entry == None:
+        return render(request, "encyclopedia/error.html")
+    else:
+        return render(request, "encyclopedia/entry.html", {
+            "file": entry,
+            "title": title
+        })
