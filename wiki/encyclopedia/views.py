@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from . import util
+import os
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -46,3 +47,25 @@ def search(request):
         })
     else:
         return redirect('home')
+
+def newPage(request):
+    return render(request, "encyclopedia/newPage.html")
+
+def create(request):
+    if request.GET:
+        title = request.GET["pt"]
+        content = request.GET["pc"]
+
+        if os.path.isfile(f"entries/{title}.md"):
+            return render(request, "encyclopedia/error.html")
+        else:
+            fp = open(f"entries/{title}.md", 'w')
+            fp.write(f"""# {title}
+        
+{content}""")
+            fp.close()
+
+        return render(request, "encyclopedia/entry.html", {
+            "file": util.get_entry(title),
+            "title": title
+        })
