@@ -1,3 +1,5 @@
+import markdown2
+from markdown2 import Markdown
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from . import util
@@ -9,14 +11,16 @@ def index(request):
     })
 
 def entry(request, title):
-    
+
     entry = util.get_entry(title)
+
+    md = Markdown()
 
     if entry == None:
         return render(request, "encyclopedia/error.html")
     else:
         return render(request, "encyclopedia/entry.html", {
-            "file": entry,
+            "file": md.convert(entry),
             "title": title
         })
 
@@ -41,8 +45,11 @@ def search(request):
                 "term": term
             })
         else:
+            
+            entry = util.get_entry(term)
+
             return render(request, "encyclopedia/entry.html", {
-            "file": util.get_entry(term),
+            "file": Markdown().convert(entry),
             "title": term
         })
     else:
@@ -65,7 +72,9 @@ def create(request):
 {content}""")
             fp.close()
 
+        entry = util.get_entry(title)
+
         return render(request, "encyclopedia/entry.html", {
-            "file": util.get_entry(title),
+            "file": Markdown().convert(entry),
             "title": title
         })
