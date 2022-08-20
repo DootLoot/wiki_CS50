@@ -1,10 +1,10 @@
 from pydoc import text
-import markdown2
+import random
+from random import randrange
 from markdown2 import Markdown
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from . import util
-import os
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -94,4 +94,14 @@ def save(request, title):
     return render(request, "encyclopedia/entry.html", {
             "file": Markdown().convert(util.get_entry(title)),
             "title": title
+        })
+
+def randomPage(request):
+    list1 = util.list_entries()
+    target = random.randrange(len(list1))
+    file = util.get_entry(list1[target])
+
+    return render(request, "encyclopedia/entry.html", {
+            "file": Markdown().convert(file),
+            "title": list1[target]
         })
