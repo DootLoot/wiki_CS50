@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Edit {{ title }} </title>
+    </head>
+
+    <body>
+
+        <h1> Currently Editing "{{title}}" Page:</h1>
+
+        <form  action=save/{{title}} method="GET">
+            <label name="ep">Edit Title Below:</label>
+
+            <textarea name="ec" rows="15" cols="100">{{content}}
+            </textarea>
+
+            <button type="submit" name=submit>Save Edits</button>
+
+        </form>
+
+    </body>
+</html>

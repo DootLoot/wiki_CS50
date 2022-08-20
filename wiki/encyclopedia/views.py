@@ -1,3 +1,4 @@
+from pydoc import text
 import markdown2
 from markdown2 import Markdown
 from django.shortcuts import render, redirect
@@ -63,18 +64,34 @@ def create(request):
         title = request.GET["pt"]
         content = request.GET["pc"]
 
-        if os.path.isfile(f"entries/{title}.md"):
-            return render(request, "encyclopedia/error.html")
-        else:
-            fp = open(f"entries/{title}.md", 'w')
-            fp.write(f"""# {title}
+        util.save_entry(title, f"""# {title}
         
 {content}""")
-            fp.close()
 
         entry = util.get_entry(title)
 
         return render(request, "encyclopedia/entry.html", {
             "file": Markdown().convert(entry),
+            "title": title
+        })
+
+def edit(request, title):
+
+    entry = util.get_entry(title)
+
+    return render(request, "encyclopedia/edit.html", {
+            "content": entry,
+            "title": title
+        })
+
+def save(request, title):
+    if request.GET:
+
+        content = request.GET["ec"]
+
+        util.save_entry(title, f"""{content}""")
+
+    return render(request, "encyclopedia/entry.html", {
+            "file": Markdown().convert(util.get_entry(title)),
             "title": title
         })
