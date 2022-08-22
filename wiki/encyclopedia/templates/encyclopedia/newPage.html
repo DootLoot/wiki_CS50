@@ -1,35 +1,29 @@
-<!DOCTYPE html>
+{% extends "encyclopedia/layout.html" %}
 
-<html>
+{% block title %}
+New Page
+{% endblock %}
     
-    <head>
+{% block body %}
 
-        <title> New Page </title>
-    
-    </head>
+    <h1> Create a New Page </h1>
 
-    <body>
+    <form action="{% url 'create' %}" method="GET">
 
-        <h1> Create a New Page </h1>
+        <label for="p">Entry Title:</label>
 
-        <form action="{% url 'create' %}" method="GET">
+        <input type="text" name="pt" placeholder="Enter Title">
 
-            <label for="p">Entry Title:</label>
+        <br>
 
-            <input type="text" name="pt" placeholder="Enter Title">
+        <textarea name="pc" rows="15" cols="100">
 
-            <br>
+        </textarea>
 
-            <textarea name="pc" rows="15" cols="100">
+        <br>
 
-            </textarea>
+        <button type="submit" name="submit">Create Page</button>
 
-            <br>
+    </form>
 
-            <button type="submit" name="submit">Create Page</button>
-
-        </form>
-
-    </body>
-
-</html>
+{% endblock %}

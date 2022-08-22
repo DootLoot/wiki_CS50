@@ -1,22 +1,25 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title> Edit {{ title }} </title>
-    </head>
+{% extends "encyclopedia/layout.html" %}
 
-    <body>
+{% block title %}
+Edit {{ title }}
+{% endblock %}
 
-        <h1> Currently Editing "{{title}}" Page:</h1>
+{% block body %}
 
-        <form  action=save/{{title}} method="GET">
-            <label name="ep">Edit Title Below:</label>
+    <h1> Currently Editing "{{title}}" Page:</h1>
 
-            <textarea name="ec" rows="15" cols="100">{{content}}
-            </textarea>
+    <form  action=save/{{title}} method="GET">
+        <label name="ep">Edit Title Below:</label>
 
-            <button type="submit" name=submit>Save Edits</button>
+        <br>
 
-        </form>
+        <textarea name="ec" rows="15" cols="100">{{content}}
+        </textarea>
 
-    </body>
-</html>
+        <br>
+
+        <button type="submit" name=submit>Save Edits</button>
+
+    </form>
+
+{% endblock %}
